@@ -98,38 +98,13 @@ function updateActiveNavLink() {
     });
 }
 
-// Formular Handling mit Success Modal
+// Formular Handling - Einfache Version für FormSubmit
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Formular-Daten sammeln
-        const formData = new FormData(this);
-        
-        // Sende Daten an FormSubmit
-        fetch(this.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        }).then(response => {
-            if (response.ok) {
-                // Zeige Success Modal
-                showSuccessModal();
-                
-                // Reset Form nach kurzer Verzögerung
-                setTimeout(() => {
-                    this.reset();
-                }, 500);
-            } else {
-                alert('Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es später erneut.');
-            }
-        }).catch(error => {
-            console.error('Fehler:', error);
-            alert('Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es später erneut.');
-        });
+        // Lasse FormSubmit den normalen Submit durchführen
+        // Keine e.preventDefault() mehr - das Formular wird normal gesendet
+        // FormSubmit leitet dann automatisch zu einer Bestätigungsseite weiter
     });
 }
 
