@@ -98,15 +98,21 @@ function updateActiveNavLink() {
     });
 }
 
-// Formular Handling - Einfache Version für FormSubmit
+// Formular Handling - Nach FormSubmit Redirect zeige Success Modal
 const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        // Lasse FormSubmit den normalen Submit durchführen
-        // Keine e.preventDefault() mehr - das Formular wird normal gesendet
-        // FormSubmit leitet dann automatisch zu einer Bestätigungsseite weiter
-    });
-}
+
+// Prüfe ob wir vom FormSubmit zurückgekommen sind
+window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hash = window.location.hash;
+    
+    // Wenn wir nach #kontakt weitergeleitet wurden, zeige Modal
+    if (hash === '#kontakt' && document.referrer.includes('formsubmit')) {
+        showSuccessModal();
+        // Entferne das Hash aus der URL
+        history.replaceState(null, null, window.location.pathname);
+    }
+});
 
 // Success Modal Funktionen
 function showSuccessModal() {
